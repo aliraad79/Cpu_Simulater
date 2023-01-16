@@ -1,8 +1,7 @@
-from random import randint
-
 import numpy as np
 
 from enums import Level
+from helper import generate_priority
 
 
 class Task:
@@ -69,14 +68,3 @@ class FCFSQueue(TimedQueue):
     def get_job_with_wait_time(self):
         task: Task = self.q.pop()
         return task, task.service_time
-
-
-def generate_priority():
-    rand = randint(1, 10)
-    if 1 <= rand <= 7:
-        level = Level.LOW
-    elif 8 <= rand <= 9:
-        level = Level.Normal
-    elif 10 <= rand <= 10:
-        level = Level.High
-    return level

@@ -74,8 +74,6 @@ class Layer2queue(object):
                 yield self.env.timeout(1)
                 continue
 
-            print(f"Start of Main proccess {self.env.now}")
-
             # Run task based on queue decipline
             task, time = selected_q.get_job_with_wait_time()
             yield self.env.timeout(time)
