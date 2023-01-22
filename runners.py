@@ -1,33 +1,9 @@
 from random import choice
 
 import numpy as np
-import simpy
 
+from config import DEBUG
 from entity import FCFSQueue, Queue, RRQueue, Task, TimedQueue
-
-
-class PriorityQueueRunner(object):
-    def __init__(self, env) -> None:
-        self.env = env
-        self.q = []
-
-        self.action = env.process(self.run())
-
-    def get_n_tasks(self, n):
-        # TODO: This must be according to level and wating time
-        items = self.q[:n]
-        del self.q[:n]
-        return items
-
-    def run(self):
-        while True:
-            try:
-                yield self.env.timeout(np.inf)
-            except simpy.Interrupt:
-                # Add to queue happen
-                print(
-                    f"Add to priority queue at {self.env.now} | current queue length : {len(self.q)}"
-                )
 
 
 class Layer2queue(object):
@@ -82,13 +58,14 @@ class Layer2queue(object):
             if not task.is_done():
                 next_queue.add_to_queue(task)
             else:
-                print(f"Task: {task} is completed")
+                if DEBUG:
+                    print(f"Task: {task} is completed")
 
 
 class JobLoader:
     def __init__(self, env, k, update_interval, priority_queue, layer_2_queue) -> None:
         self.env = env
-        self.priority_queue: PriorityQueueRunner = priority_queue
+        self.priority_queue: Queue = priority_queue
         self.layer_2_queue: Layer2queue = layer_2_queue
 
         self.update_interval = update_interval
@@ -104,7 +81,7 @@ class JobLoader:
             if len(self.priority_queue.q) > 0:
                 if self.layer_2_queue.number_of_task_in_all_queues() < self.k:
                     # Pop from layer 1 and move to layer 1
-                    tasks = self.priority_queue.get_n_tasks(
+                    tasks = self.priority_queue.pop_n_item(
                         self.k - self.layer_2_queue.number_of_task_in_all_queues()
                     )
 
@@ -128,4 +105,20 @@ class Scheduler:
             next_arrival = np.random.poisson(self.x, size=1)[0]
             yield self.env.timeout(next_arrival)
             self.priority_queue.q.append(Task.create_task(self.y, self.env.now))
-            self.priority_queue.action.interrupt()
+            if DEBUG:
+                print(
+                    f"Add to priority queue at {self.env.now} | current queue length : {len(self.priority_queue.q)}"
+                )
+
+
+class ResultCreator:
+    def __init__(self, env, priority_queue) -> None:
+        self.env = env
+        self.priority_queue = priority_queue
+
+        self.action = env.process(self.run())
+
+    def run(self):
+        while True:
+            yield self.env.timeout(1)
+            # print(len(self.priority_queue))
