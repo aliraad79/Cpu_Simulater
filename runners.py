@@ -14,6 +14,7 @@ class Layer2queue(object):
         self.q3 = FCFSQueue()
 
         self.is_cpu_busy = False
+        self.finalized_tasks = []
 
         self.action = env.process(self.run())
 
@@ -22,6 +23,9 @@ class Layer2queue(object):
 
     def add_tasks(self, tasks):
         self.q1.add_to_queue(tasks)
+
+    def get_all_tasks(self) -> list[Task]:
+        return [*self.q1.q, *self.q2.q, *self.q3.q]
 
     def choice_queue(self) -> tuple[TimedQueue, TimedQueue]:
         not_empty_queues = []
@@ -62,6 +66,7 @@ class Layer2queue(object):
             if not task.is_done():
                 next_queue.add_to_queue(task)
             else:
+                self.finalized_tasks.append(task)
                 if DEBUG:
                     print(f"Task: {task} is completed")
 
@@ -109,18 +114,18 @@ class JobCreator:
             # Add task to priority queue
             next_arrival = np.random.poisson(self.x, size=1)[0]
             yield self.env.timeout(next_arrival)
-            # Break After max number of tasks reached
-            self.created_tasks += 1
-            if self.created_tasks >= self.tasks_count:
-                break
             # Add to priority queue
             self.priority_queue.q.append(Task.create_task(self.y, self.env.now))
+            # Break After max number of tasks reached
+            self.created_tasks += 1
+            if self.created_tasks == self.tasks_count:
+                break
 
 
 class ResultCreator:
     def __init__(self, env, priority_queue, layer2queue) -> None:
         self.env = env
-        self.priority_queue = priority_queue
+        self.priority_queue: Queue = priority_queue
         self.layer2queue: Layer2queue = layer2queue
 
         self.queue_length = []
@@ -133,8 +138,16 @@ class ResultCreator:
             self.queue_length.append(len(self.priority_queue))
             self.is_cpu_busy.append(self.layer2queue.is_cpu_busy)
 
+            # Add time to tasks in priority queue
+            for i in self.priority_queue.q:
+                i.time_waited_in_layer1 += 1
+            # Add time to tasks in layer 2 tasks
+            for i in self.layer2queue.get_all_tasks():
+                i.time_waited_in_layer2 += 1
+
     def print_results(self):
         print(
             "Avarage Queue Length -> ", sum(self.queue_length) / len(self.queue_length)
         )
         print("Cpu utilization -> ", sum(self.is_cpu_busy) / len(self.is_cpu_busy))
+        print(self.layer2queue.finalized_tasks)

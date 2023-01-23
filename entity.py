@@ -10,6 +10,8 @@ class Task:
         self.priority = priority
         self.service_time = service_time
         self.remaining_time = service_time
+        self.time_waited_in_layer1 = 0
+        self.time_waited_in_layer2 = 0
 
     def run_for_n_time(self, n):
         self.remaining_time -= n
@@ -25,7 +27,13 @@ class Task:
         return Task(level, arrival_time, service_time)
 
     def __str__(self) -> str:
-        return f"Task<arrival={self.arrival_time} service={self.service_time} remaining_time={self.remaining_time}>"
+        return (
+            f"Task<arrival={self.arrival_time} service={self.service_time} remaining_time={self.remaining_time} "
+            + f"wait_1={self.time_waited_in_layer1} wait_2={self.time_waited_in_layer2}>"
+        )
+
+    def __repr__(self) -> str:
+        return self.__str__()
 
 
 class Queue:
