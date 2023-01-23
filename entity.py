@@ -24,6 +24,9 @@ class Task:
 
         return Task(level, arrival_time, service_time)
 
+    def __str__(self) -> str:
+        return f"Task<arrival={self.arrival_time} service={self.service_time} remaining_time={self.remaining_time}>"
+
 
 class Queue:
     def __init__(self) -> None:
@@ -61,7 +64,9 @@ class RRQueue(TimedQueue):
         self.time = time
 
     def get_job_with_wait_time(self):
-        return self.q.pop(), self.time
+        # I ask a question in forums and after the answer this can be changed
+        task: Task = self.q.pop()
+        return task, min(self.time, task.remaining_time)
 
 
 class FCFSQueue(TimedQueue):

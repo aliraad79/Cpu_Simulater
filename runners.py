@@ -13,6 +13,8 @@ class Layer2queue(object):
         self.q2 = RRQueue(T2)
         self.q3 = FCFSQueue()
 
+        self.is_cpu_busy = False
+
         self.action = env.process(self.run())
 
     def number_of_task_in_all_queues(self):
@@ -52,7 +54,9 @@ class Layer2queue(object):
 
             # Run task based on queue decipline
             task, time = selected_q.get_job_with_wait_time()
+            self.is_cpu_busy = True
             yield self.env.timeout(time)
+            self.is_cpu_busy = False
             task.run_for_n_time(time)
 
             if not task.is_done():
@@ -77,7 +81,7 @@ class JobLoader:
     def run(self):
         while True:
             yield self.env.timeout(self.update_interval)
-            #
+            # Load jobs from priority queue to main queues
             if len(self.priority_queue.q) > 0:
                 if self.layer_2_queue.number_of_task_in_all_queues() < self.k:
                     # Pop from layer 1 and move to layer 1
@@ -88,37 +92,49 @@ class JobLoader:
                     self.layer_2_queue.add_tasks(tasks)
 
 
-class Scheduler:
-    def __init__(self, env, x, y, priority_queue: Queue) -> None:
+class JobCreator:
+    def __init__(self, env, x, y, priority_queue: Queue, tasks_count) -> None:
         self.env = env
         self.priority_queue = priority_queue
 
         self.x = x
         self.y = y
+        self.tasks_count = tasks_count
+        self.created_tasks = 0
 
         self.action = env.process(self.run())
 
     def run(self):
         while True:
             # Add task to priority queue
-            # JobCreator
             next_arrival = np.random.poisson(self.x, size=1)[0]
             yield self.env.timeout(next_arrival)
+            # Break After max number of tasks reached
+            self.created_tasks += 1
+            if self.created_tasks >= self.tasks_count:
+                break
+            # Add to priority queue
             self.priority_queue.q.append(Task.create_task(self.y, self.env.now))
-            if DEBUG:
-                print(
-                    f"Add to priority queue at {self.env.now} | current queue length : {len(self.priority_queue.q)}"
-                )
 
 
 class ResultCreator:
-    def __init__(self, env, priority_queue) -> None:
+    def __init__(self, env, priority_queue, layer2queue) -> None:
         self.env = env
         self.priority_queue = priority_queue
+        self.layer2queue: Layer2queue = layer2queue
 
+        self.queue_length = []
+        self.is_cpu_busy = []
         self.action = env.process(self.run())
 
     def run(self):
         while True:
             yield self.env.timeout(1)
-            # print(len(self.priority_queue))
+            self.queue_length.append(len(self.priority_queue))
+            self.is_cpu_busy.append(self.layer2queue.is_cpu_busy)
+
+    def print_results(self):
+        print(
+            "Avarage Queue Length -> ", sum(self.queue_length) / len(self.queue_length)
+        )
+        print("Cpu utilization -> ", sum(self.is_cpu_busy) / len(self.is_cpu_busy))
