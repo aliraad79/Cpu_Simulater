@@ -14,7 +14,7 @@ class Layer2queue(object):
         self.q3 = FCFSQueue()
 
         self.is_cpu_busy = False
-        self.finalized_tasks = []
+        self.finalized_tasks: list[Task] = []
 
         self.action = env.process(self.run())
 
@@ -147,7 +147,29 @@ class ResultCreator:
 
     def print_results(self):
         print(
-            "Avarage Queue Length -> ", sum(self.queue_length) / len(self.queue_length)
+            "Avarage Queue Length -> ",
+            round(sum(self.queue_length) / len(self.queue_length), 3),
         )
-        print("Cpu utilization -> ", sum(self.is_cpu_busy) / len(self.is_cpu_busy))
-        print(self.layer2queue.finalized_tasks)
+
+        wait_in_line1, wait_in_line2 = self.calc_wait_in_lines()
+        print(
+            "Avarage Time in line 1 -> ",
+            round(wait_in_line1 / len(self.layer2queue.finalized_tasks), 3),
+        )
+        print(
+            "Avarage Time in line 2 -> ",
+            round(wait_in_line2 / len(self.layer2queue.finalized_tasks), 3),
+        )
+
+        print(
+            "Cpu utilization -> ",
+            round(sum(self.is_cpu_busy) / len(self.is_cpu_busy), 3),
+        )
+
+    def calc_wait_in_lines(self):
+        wait_in_line1 = 0
+        wait_in_line2 = 0
+        for i in self.layer2queue.finalized_tasks:
+            wait_in_line1 += i.time_waited_in_layer1
+            wait_in_line2 += i.time_waited_in_layer2
+        return wait_in_line1, wait_in_line2
