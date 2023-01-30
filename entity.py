@@ -72,7 +72,6 @@ class RRQueue(TimedQueue):
         self.time = time
 
     def get_job_with_wait_time(self):
-        # I ask a question in forums and after the answer this can be changed
         task: Task = self.q.pop()
         return task, min(self.time, task.remaining_time)
 
