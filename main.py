@@ -1,8 +1,11 @@
+import random
+
+import numpy as np
 import simpy
 
-from config import DEBUG, MOCK
+from config import MOCK, OPTIMIZE
 from entity import Queue
-from runners import JobLoader, Layer2queue, ResultCreator, JobCreator
+from runners import JobCreator, JobLoader, Layer2queue, ResultCreator
 
 TIME_PARTS = 0.5
 
@@ -21,8 +24,7 @@ else:
 
 
 # Logic
-for i in range(5):
-    print(f"-------------------------- Run {i} --------------------------")
+def run_simulation(TIME_PARTS, T1, T2, K, x, y, tasks_count, simulation_time):
     env = simpy.Environment()
     priority_queue = Queue()
     layer2queue = Layer2queue(env, T1, T2)
@@ -33,3 +35,19 @@ for i in range(5):
     env.run(until=simulation_time)
 
     result_creator.print_results()
+
+
+np.random.seed(2322)
+random.seed(2322)
+
+for i in range(5):
+    print(f"-------------------------- Run {i} --------------------------")
+    run_simulation(TIME_PARTS, T1, T2, K, x, y, tasks_count, simulation_time)
+
+# Optimizer
+if OPTIMIZE:
+    for i, t in enumerate([(5, 10), (5, 8), (5, 12), (2, 10), (2, 8), (2, 12)]):
+        print(
+            f"-------------------------- Optimization Run with T1={t[0]} T2={t[1]} --------------------------"
+        )
+        run_simulation(TIME_PARTS, t[0], t[1], K, x, y, tasks_count, simulation_time)
