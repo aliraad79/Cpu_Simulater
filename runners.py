@@ -167,6 +167,12 @@ class ResultCreator:
             round(sum(self.is_cpu_busy) / len(self.is_cpu_busy), 3),
         )
 
+        print(
+            "Expired Tasks -> ",
+            100* round(sum([i.dumped for i in self.layer2queue.finalized_tasks]) / len(self.layer2queue.finalized_tasks), 3),
+            "%"
+        )
+
     def calc_wait_in_lines(self):
         wait_in_line1 = 0
         wait_in_line2 = 0

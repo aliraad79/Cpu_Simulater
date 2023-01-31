@@ -21,16 +21,16 @@ if not MOCK:
     tasks_count = int(input())
     simulation_time = int(input())
 else:
-    x, y, z = 2, 5, 1
+    x, y, z = 2, 5, 8
     tasks_count = 10
     simulation_time = 90
 
 
 # Logic
-def run_simulation(TIME_PARTS, T1, T2, K, x, y,z, tasks_count, simulation_time):
+def run_simulation(TIME_PARTS, T1, T2, K, x, y, z, tasks_count, simulation_time):
     env = simpy.Environment()
     priority_queue = Queue()
-    layer2queue = Layer2queue(env,z, T1, T2)
+    layer2queue = Layer2queue(env, z, T1, T2)
     tranform_worker = JobLoader(env, K, TIME_PARTS, priority_queue, layer2queue)
     job_creator = JobCreator(env, x, y, priority_queue, tasks_count)
     result_creator = ResultCreator(env, priority_queue, layer2queue)
@@ -45,7 +45,7 @@ random.seed(2322)
 
 for i in range(5):
     print(f"-------------------------- Run {i} --------------------------")
-    run_simulation(Update_Intervals, T1, T2, K, x, y,z, tasks_count, simulation_time)
+    run_simulation(Update_Intervals, T1, T2, K, x, y, z, tasks_count, simulation_time)
 
 
 # Optimizer
@@ -58,4 +58,6 @@ if OPTIMIZE:
             print(
                 f"-------------------------- Optimization Run with T1={t1} T2={t2} --------------------------"
             )
-            run_simulation(Update_Intervals, t1, t2, K, x, y, tasks_count, simulation_time)
+            run_simulation(
+                Update_Intervals, t1, t2, K, x, y, z, tasks_count, simulation_time
+            )
