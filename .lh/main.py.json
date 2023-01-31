@@ -1,0 +1,34 @@
+{
+    "sourceFile": "main.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 4,
+            "patches": [
+                {
+                    "date": 1675153287628,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1675160300337,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,9 +44,9 @@\n random.seed(2322)\r\n \r\n for i in range(5):\r\n     print(f\"-------------------------- Run {i} --------------------------\")\r\n-    run_simulation(Update_Intervals, T1, T2, K, x, y, tasks_count, simulation_time)\r\n+    run_simulation(Update_Intervals, T1, T2, K, x, y,z, tasks_count, simulation_time)\r\n \r\n \r\n # Optimizer\r\n \r\n"
+                },
+                {
+                    "date": 1675160365769,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,12 +26,12 @@\n     simulation_time = 90\r\n \r\n \r\n # Logic\r\n-def run_simulation(TIME_PARTS, T1, T2, K, x, y, tasks_count, simulation_time):\r\n+def run_simulation(TIME_PARTS, T1, T2, K, x, y,z, tasks_count, simulation_time):\r\n     env = simpy.Environment()\r\n     priority_queue = Queue()\r\n-    layer2queue = Layer2queue(env, T1, T2)\r\n+    layer2queue = Layer2queue(env,z T1, T2)\r\n     tranform_worker = JobLoader(env, K, TIME_PARTS, priority_queue, layer2queue)\r\n     job_creator = JobCreator(env, x, y, priority_queue, tasks_count)\r\n     result_creator = ResultCreator(env, priority_queue, layer2queue)\r\n \r\n"
+                },
+                {
+                    "date": 1675160876940,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,18 +20,18 @@\n     x, y, z = map(int, input().split())\r\n     tasks_count = int(input())\r\n     simulation_time = int(input())\r\n else:\r\n-    x, y, z = 2, 5, 0\r\n+    x, y, z = 2, 5, 1\r\n     tasks_count = 10\r\n     simulation_time = 90\r\n \r\n \r\n # Logic\r\n def run_simulation(TIME_PARTS, T1, T2, K, x, y,z, tasks_count, simulation_time):\r\n     env = simpy.Environment()\r\n     priority_queue = Queue()\r\n-    layer2queue = Layer2queue(env,z T1, T2)\r\n+    layer2queue = Layer2queue(env,z, T1, T2)\r\n     tranform_worker = JobLoader(env, K, TIME_PARTS, priority_queue, layer2queue)\r\n     job_creator = JobCreator(env, x, y, priority_queue, tasks_count)\r\n     result_creator = ResultCreator(env, priority_queue, layer2queue)\r\n \r\n"
+                },
+                {
+                    "date": 1675160890106,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -56,6 +56,6 @@\n         print(\r\n \r\n             f\"-------------------------- Optimization Run with T1={t[0]} T2={t[1]} --------------------------\"\r\n         )\r\n-        run_simulation(Update_Intervals, t[0], t[1], K, x, y, tasks_count, simulation_time)\r\n+        run_simulation(Update_Intervals, t[0], t[1], K, x, y,z, tasks_count, simulation_time)\r\n \r\n"
+                }
+            ],
+            "date": 1675153287628,
+            "name": "Commit-0",
+            "content": "import random\r\n\r\nimport numpy as np\r\nimport simpy\r\n\r\n\r\nfrom config import MOCK, OPTIMIZE\r\n\r\nfrom entity import Queue\r\n\r\nfrom runners import JobCreator, JobLoader, Layer2queue, ResultCreator\r\n\r\nUpdate_Intervals = 0.5\r\n\r\nT1 = 5\r\nT2 = 10\r\nK = 3\r\n# Inputs\r\nif not MOCK:\r\n    x, y, z = map(int, input().split())\r\n    tasks_count = int(input())\r\n    simulation_time = int(input())\r\nelse:\r\n    x, y, z = 2, 5, 0\r\n    tasks_count = 10\r\n    simulation_time = 90\r\n\r\n\r\n# Logic\r\ndef run_simulation(TIME_PARTS, T1, T2, K, x, y, tasks_count, simulation_time):\r\n    env = simpy.Environment()\r\n    priority_queue = Queue()\r\n    layer2queue = Layer2queue(env, T1, T2)\r\n    tranform_worker = JobLoader(env, K, TIME_PARTS, priority_queue, layer2queue)\r\n    job_creator = JobCreator(env, x, y, priority_queue, tasks_count)\r\n    result_creator = ResultCreator(env, priority_queue, layer2queue)\r\n\r\n    env.run(until=simulation_time)\r\n\r\n    result_creator.print_results()\r\n\r\n\r\nnp.random.seed(2322)\r\nrandom.seed(2322)\r\n\r\nfor i in range(5):\r\n    print(f\"-------------------------- Run {i} --------------------------\")\r\n    run_simulation(Update_Intervals, T1, T2, K, x, y, tasks_count, simulation_time)\r\n\r\n\r\n# Optimizer\r\n\r\nif OPTIMIZE:\r\n\r\n    for i, t in enumerate([(5, 10), (5, 8), (5, 12), (2, 10), (2, 8), (2, 12)]):\r\n        print(\r\n\r\n            f\"-------------------------- Optimization Run with T1={t[0]} T2={t[1]} --------------------------\"\r\n        )\r\n        run_simulation(Update_Intervals, t[0], t[1], K, x, y, tasks_count, simulation_time)\r\n\r\n"
+        }
+    ]
+}

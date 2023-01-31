@@ -1,18 +1,18 @@
 from random import choice
-
+from helper import choose_queue
 import numpy as np
 
 from config import DEBUG
 from entity import FCFSQueue, Queue, RRQueue, Task, TimedQueue
 
-
+#self.env.timeout
 class Layer2queue(object):
-    def __init__(self, env, T1, T2) -> None:
+    def __init__(self, env,z, T1, T2) -> None:
         self.env = env
         self.q1 = RRQueue(T1)
         self.q2 = RRQueue(T2)
         self.q3 = FCFSQueue()
-
+        self.z=z
         self.is_cpu_busy = False
         self.finalized_tasks: list[Task] = []
 
@@ -28,6 +28,7 @@ class Layer2queue(object):
         return [*self.q1.q, *self.q2.q, *self.q3.q]
 
     def choice_queue(self) -> tuple[TimedQueue, TimedQueue]:
+        ##empty delete priority add
         not_empty_queues = []
         if len(self.q1) != 0:
             not_empty_queues.append(self.q1)
@@ -38,8 +39,9 @@ class Layer2queue(object):
 
         if len(not_empty_queues) == 0:
             return None, None
-
+        ##az priority python estefade nashe
         my_choice = choice(not_empty_queues)
+        #my_choice=choose_queue(not_empty_queues)
         if my_choice == self.q1:
             return my_choice, self.q2
         elif my_choice == self.q2:
@@ -59,8 +61,14 @@ class Layer2queue(object):
             # Run task based on queue decipline
             task, time = selected_q.get_job_with_wait_time()
             self.is_cpu_busy = True
+            #check condition z>time+wait
             yield self.env.timeout(time)
             self.is_cpu_busy = False
+            rand_z=np.random.exponential(self.z, size=1)[0]
+            tot_waited=task.time_waited
+            if tot_waited>=rand_z:
+                task.is_dumped()
+
             task.run_for_n_time(time)
 
             if not task.is_done():

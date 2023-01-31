@@ -19,6 +19,12 @@ class Task:
     def is_done(self):
         return self.remaining_time <= 0
 
+    def is_dumped(self):
+        return self.remaining_time <= 0
+
+    def time_waited(self):
+        return self.time_waited_in_layer1+self.time_waited_in_layer2
+
     @classmethod
     def create_task(self, y, arrival_time) -> "Task":
         service_time = np.random.exponential(y, size=1)[0]

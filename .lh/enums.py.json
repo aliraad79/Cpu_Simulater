@@ -1,0 +1,38 @@
+{
+    "sourceFile": "enums.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 5,
+            "patches": [
+                {
+                    "date": 1675158547193,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1675158625071,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,8 +5,8 @@\n     LOW = 1\r\n     Normal = 2\r\n     High = 3\r\n \r\n-class Level(Enum):\r\n-    LOW = 1\r\n+class Queue(Enum):\r\n+    RoundR = 1\r\n     Normal = 2\r\n     High = 3\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1675158663772,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,7 +6,7 @@\n     Normal = 2\r\n     High = 3\r\n \r\n class Queue(Enum):\r\n-    RoundR = 1\r\n+    RoundRobin = 1\r\n     Normal = 2\r\n     High = 3\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1675158669378,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,7 +6,7 @@\n     Normal = 2\r\n     High = 3\r\n \r\n class Queue(Enum):\r\n-    RoundRobin = 1\r\n+    RoundRobin_T1 = 1\r\n     Normal = 2\r\n     High = 3\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1675158678607,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,7 +6,7 @@\n     Normal = 2\r\n     High = 3\r\n \r\n class Queue(Enum):\r\n-    RoundRobin_T1 = 1\r\n-    Normal = 2\r\n+    Round_Robin_T1 = 1\r\n+    Round_Robin_T1 = 2\r\n     High = 3\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1675158687576,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,6 +7,6 @@\n     High = 3\r\n \r\n class Queue(Enum):\r\n     Round_Robin_T1 = 1\r\n-    Round_Robin_T1 = 2\r\n-    High = 3\n\\ No newline at end of file\n+    Round_Robin_T2 = 2\r\n+    FCFS = 3\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1675158547193,
+            "name": "Commit-0",
+            "content": "from enum import Enum\r\n\r\n\r\nclass Level(Enum):\r\n    LOW = 1\r\n    Normal = 2\r\n    High = 3\r\n\r\nclass Level(Enum):\r\n    LOW = 1\r\n    Normal = 2\r\n    High = 3"
+        }
+    ]
+}

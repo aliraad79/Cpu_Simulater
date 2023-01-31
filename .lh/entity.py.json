@@ -1,0 +1,62 @@
+{
+    "sourceFile": "entity.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 11,
+            "patches": [
+                {
+                    "date": 1675160497580,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1675160517956,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n \r\n     def is_done(self):\r\n         return self.remaining_time <= 0\r\n \r\n-    \r\n+    def time\r\n     @classmethod\r\n     def create_task(self, y, arrival_time) -> \"Task\":\r\n         service_time = np.random.exponential(y, size=1)[0]\r\n         level = generate_priority()\r\n"
+                },
+                {
+                    "date": 1675160523415,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n \r\n     def is_done(self):\r\n         return self.remaining_time <= 0\r\n \r\n-    def time\r\n+    def time_waited\r\n     @classmethod\r\n     def create_task(self, y, arrival_time) -> \"Task\":\r\n         service_time = np.random.exponential(y, size=1)[0]\r\n         level = generate_priority()\r\n"
+                },
+                {
+                    "date": 1675160529191,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n \r\n     def is_done(self):\r\n         return self.remaining_time <= 0\r\n \r\n-    def time_waited\r\n+    def time_waited(self)\r\n     @classmethod\r\n     def create_task(self, y, arrival_time) -> \"Task\":\r\n         service_time = np.random.exponential(y, size=1)[0]\r\n         level = generate_priority()\r\n"
+                },
+                {
+                    "date": 1675160537772,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,10 @@\n \r\n     def is_done(self):\r\n         return self.remaining_time <= 0\r\n \r\n-    def time_waited(self)\r\n+    def time_waited(self):\r\n+        \r\n     @classmethod\r\n     def create_task(self, y, arrival_time) -> \"Task\":\r\n         service_time = np.random.exponential(y, size=1)[0]\r\n         level = generate_priority()\r\n"
+                },
+                {
+                    "date": 1675160543489,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n     def is_done(self):\r\n         return self.remaining_time <= 0\r\n \r\n     def time_waited(self):\r\n-        \r\n+        return seld\r\n     @classmethod\r\n     def create_task(self, y, arrival_time) -> \"Task\":\r\n         service_time = np.random.exponential(y, size=1)[0]\r\n         level = generate_priority()\r\n"
+                },
+                {
+                    "date": 1675160550663,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n     def is_done(self):\r\n         return self.remaining_time <= 0\r\n \r\n     def time_waited(self):\r\n-        return seld\r\n+        return self.time_waited_in_layer1+sel\r\n     @classmethod\r\n     def create_task(self, y, arrival_time) -> \"Task\":\r\n         service_time = np.random.exponential(y, size=1)[0]\r\n         level = generate_priority()\r\n"
+                },
+                {
+                    "date": 1675160562904,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n     def is_done(self):\r\n         return self.remaining_time <= 0\r\n \r\n     def time_waited(self):\r\n-        return self.time_waited_in_layer1+sel\r\n+        return self.time_waited_in_layer1+self.time_waited_in_layer2\r\n     @classmethod\r\n     def create_task(self, y, arrival_time) -> \"Task\":\r\n         service_time = np.random.exponential(y, size=1)[0]\r\n         level = generate_priority()\r\n"
+                },
+                {
+                    "date": 1675160667356,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,8 +20,9 @@\n         return self.remaining_time <= 0\r\n \r\n     def time_waited(self):\r\n         return self.time_waited_in_layer1+self.time_waited_in_layer2\r\n+        \r\n     @classmethod\r\n     def create_task(self, y, arrival_time) -> \"Task\":\r\n         service_time = np.random.exponential(y, size=1)[0]\r\n         level = generate_priority()\r\n"
+                },
+                {
+                    "date": 1675160674770,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,11 +18,14 @@\n \r\n     def is_done(self):\r\n         return self.remaining_time <= 0\r\n \r\n+    def is_done(self):\r\n+        return self.remaining_time <= 0\r\n+        \r\n     def time_waited(self):\r\n         return self.time_waited_in_layer1+self.time_waited_in_layer2\r\n-        \r\n+\r\n     @classmethod\r\n     def create_task(self, y, arrival_time) -> \"Task\":\r\n         service_time = np.random.exponential(y, size=1)[0]\r\n         level = generate_priority()\r\n"
+                },
+                {
+                    "date": 1675160693222,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,11 +18,11 @@\n \r\n     def is_done(self):\r\n         return self.remaining_time <= 0\r\n \r\n-    def is_done(self):\r\n+    def is_(self):\r\n         return self.remaining_time <= 0\r\n-        \r\n+\r\n     def time_waited(self):\r\n         return self.time_waited_in_layer1+self.time_waited_in_layer2\r\n \r\n     @classmethod\r\n"
+                },
+                {
+                    "date": 1675160718041,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n \r\n     def is_done(self):\r\n         return self.remaining_time <= 0\r\n \r\n-    def is_(self):\r\n+    def is_dumped(self):\r\n         return self.remaining_time <= 0\r\n \r\n     def time_waited(self):\r\n         return self.time_waited_in_layer1+self.time_waited_in_layer2\r\n"
+                }
+            ],
+            "date": 1675160497580,
+            "name": "Commit-0",
+            "content": "import numpy as np\r\n\r\nfrom enums import Level\r\nfrom helper import generate_priority\r\n\r\n\r\nclass Task:\r\n    def __init__(self, priority: Level, arrival_time, service_time) -> None:\r\n        self.arrival_time = arrival_time\r\n        self.priority = priority\r\n        self.service_time = service_time\r\n        self.remaining_time = service_time\r\n        self.time_waited_in_layer1 = 0\r\n        self.time_waited_in_layer2 = 0\r\n\r\n    def run_for_n_time(self, n):\r\n        self.remaining_time -= n\r\n\r\n    def is_done(self):\r\n        return self.remaining_time <= 0\r\n\r\n    \r\n    @classmethod\r\n    def create_task(self, y, arrival_time) -> \"Task\":\r\n        service_time = np.random.exponential(y, size=1)[0]\r\n        level = generate_priority()\r\n\r\n        return Task(level, arrival_time, service_time)\r\n\r\n    def __str__(self) -> str:\r\n        return (\r\n            f\"Task<arrival={self.arrival_time} service={self.service_time} remaining_time={self.remaining_time} \"\r\n            + f\"wait_1={self.time_waited_in_layer1} wait_2={self.time_waited_in_layer2}>\"\r\n        )\r\n\r\n    def __repr__(self) -> str:\r\n        return self.__str__()\r\n\r\n\r\nclass Queue:\r\n    def __init__(self) -> None:\r\n        self.q = []\r\n\r\n    def add_to_queue(self, item):\r\n        if isinstance(item, list):\r\n            self.q.extend(item)\r\n        else:\r\n            self.q.append(item)\r\n\r\n    def pop_fifo(self):\r\n        return self.q.pop(0)\r\n\r\n    def pop(self, n):\r\n        return self.q.pop(n)\r\n\r\n    def pop_n_item(self, n):\r\n        items = self.q[:n]\r\n        del self.q[:n]\r\n        return items\r\n\r\n    def __len__(self):\r\n        return len(self.q)\r\n\r\n\r\nclass TimedQueue(Queue):\r\n    def get_job_with_wait_time(self) -> tuple[Task, int]:\r\n        raise NotImplementedError()\r\n\r\n\r\nclass RRQueue(TimedQueue):\r\n    def __init__(self, time) -> None:\r\n        super().__init__()\r\n        self.time = time\r\n\r\n    def get_job_with_wait_time(self):\r\n        task: Task = self.q.pop()\r\n        return task, min(self.time, task.remaining_time)\r\n\r\n\r\nclass FCFSQueue(TimedQueue):\r\n    def get_job_with_wait_time(self):\r\n        task: Task = self.q.pop()\r\n        return task, task.service_time\r\n"
+        }
+    ]
+}
