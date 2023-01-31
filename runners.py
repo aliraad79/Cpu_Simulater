@@ -1,9 +1,9 @@
-from random import choice
-from helper import choose_queue
 import numpy as np
 
 from config import DEBUG
 from entity import FCFSQueue, Queue, RRQueue, Task, TimedQueue
+from helper import choose_queue
+
 
 # self.env.timeout
 class Layer2queue(object):

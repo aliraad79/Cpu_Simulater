@@ -1,0 +1,102 @@
+-------------------------- Run 0 --------------------------
+Avarage Queue Length ->  0.82
+Avarage Time in line 1 ->  7.3
+Avarage Time in line 2 ->  10.1
+Cpu utilization ->  0.472
+Expired Tasks ->  80.0 %
+-------------------------- Run 1 --------------------------
+Avarage Queue Length ->  0.494
+Avarage Time in line 1 ->  5.375
+Avarage Time in line 2 ->  6.625
+Cpu utilization ->  0.472
+Expired Tasks ->  87.5 %
+-------------------------- Run 2 --------------------------
+Avarage Queue Length ->  1.348
+Avarage Time in line 1 ->  12.0
+Avarage Time in line 2 ->  13.7
+Cpu utilization ->  0.573
+Expired Tasks ->  100.0 %
+-------------------------- Run 3 --------------------------
+Avarage Queue Length ->  0.124
+Avarage Time in line 1 ->  1.1
+Avarage Time in line 2 ->  4.9
+Cpu utilization ->  0.27
+Expired Tasks ->  20.0 %
+-------------------------- Run 4 --------------------------
+Avarage Queue Length ->  1.303
+Avarage Time in line 1 ->  11.6
+Avarage Time in line 2 ->  15.1
+Cpu utilization ->  0.697
+Expired Tasks ->  90.0 %
+-------------------------- Optimization Run with T1=1 T2=8 --------------------------
+Avarage Queue Length ->  0.427
+Avarage Time in line 1 ->  3.8
+Avarage Time in line 2 ->  5.9
+Cpu utilization ->  0.258
+Expired Tasks ->  80.0 %
+-------------------------- Optimization Run with T1=1 T2=10 --------------------------
+Avarage Queue Length ->  0.472
+Avarage Time in line 1 ->  4.2
+Avarage Time in line 2 ->  6.5
+Cpu utilization ->  0.281
+Expired Tasks ->  80.0 %
+-------------------------- Optimization Run with T1=1 T2=12 --------------------------
+Avarage Queue Length ->  0.517
+Avarage Time in line 1 ->  4.6
+Avarage Time in line 2 ->  7.1
+Cpu utilization ->  0.303
+Expired Tasks ->  80.0 %
+-------------------------- Optimization Run with T1=2 T2=8 --------------------------
+Avarage Queue Length ->  0.652
+Avarage Time in line 1 ->  5.8
+Avarage Time in line 2 ->  7.8
+Cpu utilization ->  0.494
+Expired Tasks ->  70.0 %
+-------------------------- Optimization Run with T1=2 T2=10 --------------------------
+Avarage Queue Length ->  0.652
+Avarage Time in line 1 ->  5.8
+Avarage Time in line 2 ->  7.8
+Cpu utilization ->  0.517
+Expired Tasks ->  70.0 %
+-------------------------- Optimization Run with T1=2 T2=12 --------------------------
+Avarage Queue Length ->  0.652
+Avarage Time in line 1 ->  5.8
+Avarage Time in line 2 ->  6.6
+Cpu utilization ->  0.382
+Expired Tasks ->  60.0 %
+-------------------------- Optimization Run with T1=3 T2=8 --------------------------
+Avarage Queue Length ->  0.393
+Avarage Time in line 1 ->  3.5
+Avarage Time in line 2 ->  6.4
+Cpu utilization ->  0.371
+Expired Tasks ->  50.0 %
+-------------------------- Optimization Run with T1=3 T2=10 --------------------------
+Avarage Queue Length ->  0.393
+Avarage Time in line 1 ->  3.5
+Avarage Time in line 2 ->  6.4
+Cpu utilization ->  0.393
+Expired Tasks ->  50.0 %
+-------------------------- Optimization Run with T1=3 T2=12 --------------------------
+Avarage Queue Length ->  0.393
+Avarage Time in line 1 ->  3.5
+Avarage Time in line 2 ->  6.4
+Cpu utilization ->  0.393
+Expired Tasks ->  50.0 %
+-------------------------- Optimization Run with T1=5 T2=8 --------------------------
+Avarage Queue Length ->  0.36
+Avarage Time in line 1 ->  3.2
+Avarage Time in line 2 ->  4.8
+Cpu utilization ->  0.393
+Expired Tasks ->  60.0 %
+-------------------------- Optimization Run with T1=5 T2=10 --------------------------
+Avarage Queue Length ->  0.36
+Avarage Time in line 1 ->  3.2
+Avarage Time in line 2 ->  4.8
+Cpu utilization ->  0.393
+Expired Tasks ->  60.0 %
+-------------------------- Optimization Run with T1=5 T2=12 --------------------------
+Avarage Queue Length ->  0.36
+Avarage Time in line 1 ->  3.2
+Avarage Time in line 2 ->  4.8
+Cpu utilization ->  0.393
+Expired Tasks ->  60.0 %
