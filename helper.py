@@ -1,6 +1,6 @@
 from random import randint
 
-from enums import Level,Queue
+from enums import Level
 
 
 def generate_priority():
@@ -12,6 +12,7 @@ def generate_priority():
     elif 9 <= rand <= 10:
         level = Level.High
     return level
+
 
 def choose_queue(arr):
     rand = randint(1, 10)

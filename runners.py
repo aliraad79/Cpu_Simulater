@@ -5,14 +5,14 @@ import numpy as np
 from config import DEBUG
 from entity import FCFSQueue, Queue, RRQueue, Task, TimedQueue
 
-#self.env.timeout
+# self.env.timeout
 class Layer2queue(object):
-    def __init__(self, env,z, T1, T2) -> None:
+    def __init__(self, env, z, T1, T2) -> None:
         self.env = env
         self.q1 = RRQueue(T1)
         self.q2 = RRQueue(T2)
         self.q3 = FCFSQueue()
-        self.z=z
+        self.z = z
         self.is_cpu_busy = False
         self.finalized_tasks: list[Task] = []
 
@@ -29,11 +29,11 @@ class Layer2queue(object):
 
     def choice_queue(self) -> tuple[TimedQueue, TimedQueue]:
         ##empty delete priority add
-        queues = [self.q1,self.q2,self.q3]
-#
+        queues = [self.q1, self.q2, self.q3]
+        #
         ##az priority python estefade nashe
-        #my_choice = choice(not_empty_queues)
-        my_choice=choose_queue(queues)
+        # my_choice = choice(not_empty_queues)
+        my_choice = choose_queue(queues)
         if my_choice == self.q1:
             return my_choice, self.q2
         elif my_choice == self.q2:
@@ -45,21 +45,21 @@ class Layer2queue(object):
         while True:
             # Choose a queue
             selected_q, next_queue = self.choice_queue()
-            if selected_q == None or len(selected_q)==0:
+            if selected_q == None or len(selected_q) == 0:
                 # Bug must be fixed
                 yield self.env.timeout(1)
                 continue
 
             # Run task based on queue decipline
             task, time = selected_q.get_job_with_wait_time()
-            
+
             self.is_cpu_busy = True
-            #check condition z>time+wait
+            # check condition z>time+wait
             yield self.env.timeout(time)
             self.is_cpu_busy = False
-            rand_z=np.random.exponential(self.z, size=1)[0]
-            tot_waited=task.time_waited()
-            if tot_waited>=rand_z:
+            rand_z = np.random.exponential(self.z, size=1)[0]
+            tot_waited = task.time_waited()
+            if tot_waited >= rand_z:
                 task.is_dumped()
             else:
                 task.run_for_n_time(time)
@@ -169,8 +169,13 @@ class ResultCreator:
 
         print(
             "Expired Tasks -> ",
-            100* round(sum([i.dumped for i in self.layer2queue.finalized_tasks]) / len(self.layer2queue.finalized_tasks), 3),
-            "%"
+            100
+            * round(
+                sum([i.dumped for i in self.layer2queue.finalized_tasks])
+                / len(self.layer2queue.finalized_tasks),
+                3,
+            ),
+            "%",
         )
 
     def calc_wait_in_lines(self):

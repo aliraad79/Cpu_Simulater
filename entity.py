@@ -12,7 +12,7 @@ class Task:
         self.remaining_time = service_time
         self.time_waited_in_layer1 = 0
         self.time_waited_in_layer2 = 0
-        self.dumped=False
+        self.dumped = False
 
     def run_for_n_time(self, n):
         self.remaining_time -= n
@@ -22,10 +22,10 @@ class Task:
 
     def is_dumped(self):
         self.remaining_time = 0
-        self.dumped=True
+        self.dumped = True
 
     def time_waited(self):
-        return self.time_waited_in_layer1+self.time_waited_in_layer2
+        return self.time_waited_in_layer1 + self.time_waited_in_layer2
 
     @classmethod
     def create_task(self, y, arrival_time) -> "Task":
@@ -65,8 +65,8 @@ class Queue:
         del self.q[:n]
         return items
 
-    def pop_n_priority_item(self,n):
-        self.q.sort(key=lambda x :x.priority.value,reverse=True)
+    def pop_n_priority_item(self, n):
+        self.q.sort(key=lambda x: x.priority.value, reverse=True)
         items = self.q[:n]
         del self.q[:n]
         return items
