@@ -28,12 +28,7 @@ class Layer2queue(object):
         return [*self.q1.q, *self.q2.q, *self.q3.q]
 
     def choice_queue(self) -> tuple[TimedQueue, TimedQueue]:
-        ##empty delete priority add
-        queues = [self.q1, self.q2, self.q3]
-        #
-        ##az priority python estefade nashe
-        # my_choice = choice(not_empty_queues)
-        my_choice = choose_queue(queues)
+        my_choice = choose_queue([self.q1, self.q2, self.q3])
         if my_choice == self.q1:
             return my_choice, self.q2
         elif my_choice == self.q2:
