@@ -51,11 +51,11 @@ for i in range(5):
 # Optimizer
 
 if OPTIMIZE:
-
-    for i, t in enumerate([(5, 10), (5, 8), (5, 12), (2, 10), (2, 8), (2, 12)]):
-        print(
-
-            f"-------------------------- Optimization Run with T1={t[0]} T2={t[1]} --------------------------"
-        )
-        run_simulation(Update_Intervals, t[0], t[1], K, x, y,z, tasks_count, simulation_time)
-
+    for t1 in [1, 2, 3, 5]:
+        for t2 in [8, 10, 12]:
+            np.random.seed(235)
+            random.seed(235)
+            print(
+                f"-------------------------- Optimization Run with T1={t1} T2={t2} --------------------------"
+            )
+            run_simulation(Update_Intervals, t1, t2, K, x, y, tasks_count, simulation_time)
