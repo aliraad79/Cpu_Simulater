@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 11,
+            "activePatchIndex": 42,
             "patches": [
                 {
                     "date": 1675160497580,
@@ -52,6 +52,130 @@
                 {
                     "date": 1675160718041,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n \r\n     def is_done(self):\r\n         return self.remaining_time <= 0\r\n \r\n-    def is_(self):\r\n+    def is_dumped(self):\r\n         return self.remaining_time <= 0\r\n \r\n     def time_waited(self):\r\n         return self.time_waited_in_layer1+self.time_waited_in_layer2\r\n"
+                },
+                {
+                    "date": 1675191078494,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n     def is_dumped(self):\r\n         return self.remaining_time <= 0\r\n \r\n     def time_waited(self):\r\n-        return self.time_waited_in_layer1+self.time_waited_in_layer2\r\n+        return (self.time_waited_in_layer1+self.time_waited_in_layer2\r\n \r\n     @classmethod\r\n     def create_task(self, y, arrival_time) -> \"Task\":\r\n         service_time = np.random.exponential(y, size=1)[0]\r\n"
+                },
+                {
+                    "date": 1675191126283,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n     def is_dumped(self):\r\n         return self.remaining_time <= 0\r\n \r\n     def time_waited(self):\r\n-        return (self.time_waited_in_layer1+self.time_waited_in_layer2\r\n+        return self.time_waited_in_layer1+self.time_waited_in_layer2)\r\n \r\n     @classmethod\r\n     def create_task(self, y, arrival_time) -> \"Task\":\r\n         service_time = np.random.exponential(y, size=1)[0]\r\n"
+                },
+                {
+                    "date": 1675191181074,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,12 +19,12 @@\n     def is_done(self):\r\n         return self.remaining_time <= 0\r\n \r\n     def is_dumped(self):\r\n-        return self.remaining_time <= 0\r\n+        return self.remaining_time = 0\r\n \r\n     def time_waited(self):\r\n-        return self.time_waited_in_layer1+self.time_waited_in_layer2)\r\n+        return self.time_waited_in_layer1+self.time_waited_in_layer2\r\n \r\n     @classmethod\r\n     def create_task(self, y, arrival_time) -> \"Task\":\r\n         service_time = np.random.exponential(y, size=1)[0]\r\n"
+                },
+                {
+                    "date": 1675191193454,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,8 +11,9 @@\n         self.service_time = service_time\r\n         self.remaining_time = service_time\r\n         self.time_waited_in_layer1 = 0\r\n         self.time_waited_in_layer2 = 0\r\n+        \r\n \r\n     def run_for_n_time(self, n):\r\n         self.remaining_time -= n\r\n \r\n"
+                },
+                {
+                    "date": 1675191200621,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n         self.service_time = service_time\r\n         self.remaining_time = service_time\r\n         self.time_waited_in_layer1 = 0\r\n         self.time_waited_in_layer2 = 0\r\n-        \r\n+        self.dumped=false\r\n \r\n     def run_for_n_time(self, n):\r\n         self.remaining_time -= n\r\n \r\n"
+                },
+                {
+                    "date": 1675191208431,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n         self.service_time = service_time\r\n         self.remaining_time = service_time\r\n         self.time_waited_in_layer1 = 0\r\n         self.time_waited_in_layer2 = 0\r\n-        self.dumped=false\r\n+        self.dumped=False\r\n \r\n     def run_for_n_time(self, n):\r\n         self.remaining_time -= n\r\n \r\n"
+                },
+                {
+                    "date": 1675191226045,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,8 +20,9 @@\n     def is_done(self):\r\n         return self.remaining_time <= 0\r\n \r\n     def is_dumped(self):\r\n+        self.remaining_time = 0\r\n         return self.remaining_time = 0\r\n \r\n     def time_waited(self):\r\n         return self.time_waited_in_layer1+self.time_waited_in_layer2\r\n"
+                },
+                {
+                    "date": 1675191233990,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n         return self.remaining_time <= 0\r\n \r\n     def is_dumped(self):\r\n         self.remaining_time = 0\r\n-        return self.remaining_time = 0\r\n+        self.\r\n \r\n     def time_waited(self):\r\n         return self.time_waited_in_layer1+self.time_waited_in_layer2\r\n \r\n"
+                },
+                {
+                    "date": 1675191240304,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n         return self.remaining_time <= 0\r\n \r\n     def is_dumped(self):\r\n         self.remaining_time = 0\r\n-        self.\r\n+        self.dumped=True\r\n \r\n     def time_waited(self):\r\n         return self.time_waited_in_layer1+self.time_waited_in_layer2\r\n \r\n"
+                },
+                {
+                    "date": 1675191533259,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -67,8 +67,9 @@\n \r\n     def __len__(self):\r\n         return len(self.q)\r\n \r\n+    \r\n \r\n class TimedQueue(Queue):\r\n     def get_job_with_wait_time(self) -> tuple[Task, int]:\r\n         raise NotImplementedError()\r\n"
+                },
+                {
+                    "date": 1675191539610,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -64,12 +64,12 @@\n         items = self.q[:n]\r\n         del self.q[:n]\r\n         return items\r\n \r\n+    \r\n     def __len__(self):\r\n         return len(self.q)\r\n \r\n-    \r\n \r\n class TimedQueue(Queue):\r\n     def get_job_with_wait_time(self) -> tuple[Task, int]:\r\n         raise NotImplementedError()\r\n"
+                },
+                {
+                    "date": 1675191544974,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -64,9 +64,9 @@\n         items = self.q[:n]\r\n         del self.q[:n]\r\n         return items\r\n \r\n-    \r\n+    def pop_\r\n     def __len__(self):\r\n         return len(self.q)\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1675191550740,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -64,9 +64,9 @@\n         items = self.q[:n]\r\n         del self.q[:n]\r\n         return items\r\n \r\n-    def pop_\r\n+    def pop_n_pr\r\n     def __len__(self):\r\n         return len(self.q)\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1675191562075,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -64,9 +64,9 @@\n         items = self.q[:n]\r\n         del self.q[:n]\r\n         return items\r\n \r\n-    def pop_n_pr\r\n+    def pop_n_priority\r\n     def __len__(self):\r\n         return len(self.q)\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1675191574333,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -64,9 +64,10 @@\n         items = self.q[:n]\r\n         del self.q[:n]\r\n         return items\r\n \r\n-    def pop_n_priority\r\n+    def pop_n_priority_item\r\n+\r\n     def __len__(self):\r\n         return len(self.q)\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1675191586461,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -64,9 +64,9 @@\n         items = self.q[:n]\r\n         del self.q[:n]\r\n         return items\r\n \r\n-    def pop_n_priority_item\r\n+    def pop_n_priority_item(self,n)\r\n \r\n     def __len__(self):\r\n         return len(self.q)\r\n \r\n"
+                },
+                {
+                    "date": 1675191592868,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -64,10 +64,10 @@\n         items = self.q[:n]\r\n         del self.q[:n]\r\n         return items\r\n \r\n-    def pop_n_priority_item(self,n)\r\n-\r\n+    def pop_n_priority_item(self,n):\r\n+        \r\n     def __len__(self):\r\n         return len(self.q)\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1675191606179,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -65,9 +65,11 @@\n         del self.q[:n]\r\n         return items\r\n \r\n     def pop_n_priority_item(self,n):\r\n-        \r\n+        items = self.q[:n]\r\n+        del self.q[:n]\r\n+        return items\r\n     def __len__(self):\r\n         return len(self.q)\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1675191620256,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -65,8 +65,9 @@\n         del self.q[:n]\r\n         return items\r\n \r\n     def pop_n_priority_item(self,n):\r\n+        \r\n         items = self.q[:n]\r\n         del self.q[:n]\r\n         return items\r\n     def __len__(self):\r\n"
+                },
+                {
+                    "date": 1675191628352,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -65,9 +65,9 @@\n         del self.q[:n]\r\n         return items\r\n \r\n     def pop_n_priority_item(self,n):\r\n-        \r\n+        q=self.\r\n         items = self.q[:n]\r\n         del self.q[:n]\r\n         return items\r\n     def __len__(self):\r\n"
+                },
+                {
+                    "date": 1675191635997,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -65,9 +65,9 @@\n         del self.q[:n]\r\n         return items\r\n \r\n     def pop_n_priority_item(self,n):\r\n-        q=self.\r\n+        q=self.q.s\r\n         items = self.q[:n]\r\n         del self.q[:n]\r\n         return items\r\n     def __len__(self):\r\n"
+                },
+                {
+                    "date": 1675191646995,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -65,9 +65,9 @@\n         del self.q[:n]\r\n         return items\r\n \r\n     def pop_n_priority_item(self,n):\r\n-        q=self.q.s\r\n+        q=self.q.sort(key)\r\n         items = self.q[:n]\r\n         del self.q[:n]\r\n         return items\r\n     def __len__(self):\r\n"
+                },
+                {
+                    "date": 1675191652485,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -65,9 +65,9 @@\n         del self.q[:n]\r\n         return items\r\n \r\n     def pop_n_priority_item(self,n):\r\n-        q=self.q.sort(key)\r\n+        q=self.q.sort(key=lambda)\r\n         items = self.q[:n]\r\n         del self.q[:n]\r\n         return items\r\n     def __len__(self):\r\n"
+                },
+                {
+                    "date": 1675191661047,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -65,9 +65,9 @@\n         del self.q[:n]\r\n         return items\r\n \r\n     def pop_n_priority_item(self,n):\r\n-        q=self.q.sort(key=lambda)\r\n+        q=self.q.sort(key=lambda x )\r\n         items = self.q[:n]\r\n         del self.q[:n]\r\n         return items\r\n     def __len__(self):\r\n"
+                },
+                {
+                    "date": 1675191786935,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -65,9 +65,9 @@\n         del self.q[:n]\r\n         return items\r\n \r\n     def pop_n_priority_item(self,n):\r\n-        q=self.q.sort(key=lambda x )\r\n+        q=self.q.sort(key=lambda x :x.)\r\n         items = self.q[:n]\r\n         del self.q[:n]\r\n         return items\r\n     def __len__(self):\r\n"
+                },
+                {
+                    "date": 1675191817146,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -65,9 +65,9 @@\n         del self.q[:n]\r\n         return items\r\n \r\n     def pop_n_priority_item(self,n):\r\n-        q=self.q.sort(key=lambda x :x.)\r\n+        self.q=self.q.sort(key=lambda x :x.priority)\r\n         items = self.q[:n]\r\n         del self.q[:n]\r\n         return items\r\n     def __len__(self):\r\n"
+                },
+                {
+                    "date": 1675191834257,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -69,8 +69,9 @@\n         self.q=self.q.sort(key=lambda x :x.priority)\r\n         items = self.q[:n]\r\n         del self.q[:n]\r\n         return items\r\n+        \r\n     def __len__(self):\r\n         return len(self.q)\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1675191884039,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -65,13 +65,13 @@\n         del self.q[:n]\r\n         return items\r\n \r\n     def pop_n_priority_item(self,n):\r\n-        self.q=self.q.sort(key=lambda x :x.priority)\r\n+        self.q=self.q.sort(key=lambda x :x.priority,)\r\n         items = self.q[:n]\r\n         del self.q[:n]\r\n         return items\r\n-        \r\n+\r\n     def __len__(self):\r\n         return len(self.q)\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1675191890931,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -65,9 +65,9 @@\n         del self.q[:n]\r\n         return items\r\n \r\n     def pop_n_priority_item(self,n):\r\n-        self.q=self.q.sort(key=lambda x :x.priority,)\r\n+        self.q=self.q.sort(key=lambda x :x.priority,reverse=True)\r\n         items = self.q[:n]\r\n         del self.q[:n]\r\n         return items\r\n \r\n"
+                },
+                {
+                    "date": 1675192242536,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -65,9 +65,9 @@\n         del self.q[:n]\r\n         return items\r\n \r\n     def pop_n_priority_item(self,n):\r\n-        self.q=self.q.sort(key=lambda x :x.priority,reverse=True)\r\n+        self.q.sort(key=lambda x :x.priority,reverse=True)\r\n         items = self.q[:n]\r\n         del self.q[:n]\r\n         return items\r\n \r\n"
+                },
+                {
+                    "date": 1675192274073,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -65,9 +65,9 @@\n         del self.q[:n]\r\n         return items\r\n \r\n     def pop_n_priority_item(self,n):\r\n-        self.q.sort(key=lambda x :x.priority,reverse=True)\r\n+        self.q.sort(key=lambda x :x.priority.value,reverse=True)\r\n         items = self.q[:n]\r\n         del self.q[:n]\r\n         return items\r\n \r\n"
                 }
             ],
             "date": 1675160497580,

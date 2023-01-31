@@ -29,19 +29,11 @@ class Layer2queue(object):
 
     def choice_queue(self) -> tuple[TimedQueue, TimedQueue]:
         ##empty delete priority add
-        not_empty_queues = []
-        if len(self.q1) != 0:
-            not_empty_queues.append(self.q1)
-        if len(self.q2) != 0:
-            not_empty_queues.append(self.q2)
-        if len(self.q3) != 0:
-            not_empty_queues.append(self.q3)
-
-        if len(not_empty_queues) == 0:
-            return None, None
+        queues = [self.q1,self.q2,self.q3]
+#
         ##az priority python estefade nashe
-        my_choice = choice(not_empty_queues)
-        #my_choice=choose_queue(not_empty_queues)
+        #my_choice = choice(not_empty_queues)
+        my_choice=choose_queue(queues)
         if my_choice == self.q1:
             return my_choice, self.q2
         elif my_choice == self.q2:
@@ -53,23 +45,24 @@ class Layer2queue(object):
         while True:
             # Choose a queue
             selected_q, next_queue = self.choice_queue()
-            if selected_q == None:
+            if selected_q == None or len(selected_q)==0:
                 # Bug must be fixed
                 yield self.env.timeout(1)
                 continue
 
             # Run task based on queue decipline
             task, time = selected_q.get_job_with_wait_time()
+            
             self.is_cpu_busy = True
             #check condition z>time+wait
             yield self.env.timeout(time)
             self.is_cpu_busy = False
             rand_z=np.random.exponential(self.z, size=1)[0]
-            tot_waited=task.time_waited
+            tot_waited=task.time_waited()
             if tot_waited>=rand_z:
                 task.is_dumped()
-
-            task.run_for_n_time(time)
+            else:
+                task.run_for_n_time(time)
 
             if not task.is_done():
                 next_queue.add_to_queue(task)
@@ -98,7 +91,7 @@ class JobLoader:
             if len(self.priority_queue.q) > 0:
                 if self.layer_2_queue.number_of_task_in_all_queues() < self.k:
                     # Pop from layer 1 and move to layer 1
-                    tasks = self.priority_queue.pop_n_item(
+                    tasks = self.priority_queue.pop_n_priority_item(
                         self.k - self.layer_2_queue.number_of_task_in_all_queues()
                     )
 
